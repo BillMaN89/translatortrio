@@ -1,7 +1,3 @@
-// met1.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
-//#include "pch.h"
 #include <iostream>
 #include <stdio.h>
 #include <fstream>
@@ -12,36 +8,40 @@ using namespace std;
 int main(int argc, char const *argv[]) {
 	stack<char> nas;
 	char x;
-  int steps;
+	int steps;
 
 	ifstream myfile;
 	myfile.open(argv[1]);
-  std::cout << "Do you want to display the steps done?" << endl<<"Type 1 for yes,2 for no"<<endl;
-  cin>>steps;
+	cout << "Do you want to display the steps done?" << endl<<"Type 1 for yes,2 for no"<<endl;
+	cin>>steps;
 	while (myfile >> x) {
 		if (x == '(') {
-			nas.push(x);
-      if (steps==1)
-			   cout << "Left Parenthesis Added to the stack"<<endl;
+			nas.push('A');
+      		if (steps==1)
+				cout << "Left Parenthesis Found. Stack status: (k1, A inserted)"<<endl;
 		}
 		else if (x == ')') {
 			if (!nas.empty()) {
 				nas.pop();
-        if (steps==1)
-				    cout << "Right Parenthesis inserted->Left Parenthesis Popped out"<<endl;
+	       		if (steps==1)
+					cout << "Right Parenthesis Found. Stack status: (k1, A popped out)"<<endl;
 			}
-			else {
-        nas.push(')');
-        if (steps==1)
-				    cout << "No Parenthesis set found"<<endl;
+		else {
+        	nas.push('A');
+       		if (steps==1)
+				cout << "Rigt Parenthesis Found without a Left to close. Stack status: (k2, A inserted)"<<endl;
 				break;
 			}
 		}
 	}
 	if (nas.empty()) {
+		if (steps==1)
+			cout<<"No more Parenthesis to insert. Stack status: (k2,$)"<<endl;
 		cout << "YES"<<endl;
 	}
 	else {
+		if (steps==1)
+			cout<<"No more Parenthesis to insert. Stack status: (k2,A)"<<endl;
 		cout << "NO"<<endl;
 	}
 
