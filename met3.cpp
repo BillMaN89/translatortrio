@@ -73,6 +73,7 @@ int main() {
       }
     }
   }
+ cout<<endl<<"The result is: "<<endl;
   if (topdownsyntax.empty()) {
     cout<<"Yes"<<endl;
   }
