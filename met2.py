@@ -35,6 +35,7 @@ while i<=len(stringlist) :
 			stringlist.insert(i,"c")
 	else:
 		i+=2
+		count-=1
 	count+=1
 print("Generated String:"," ".join(stringlist))
 
