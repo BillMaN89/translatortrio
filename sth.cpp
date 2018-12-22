@@ -3,5 +3,4 @@
 
 int main(void) {
   printf("Hello kokla\n");
-
 }
