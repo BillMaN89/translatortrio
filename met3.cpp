@@ -4,13 +4,14 @@
 using namespace std;
 
 int main(void) {
-
+	bool k= false;
 	string input;
 	cout<<"Do you want to insert your own string for check, or use the default one([[y:x]+[x:y]])?"<<endl;
-	cout<<"Insert your string now with '$' at the end or type 'no' to use the default"<<endl;
+	cout<<"Insert your string now without '$' at the end or type 'no' to use the default"<<endl;
 	cin>>input;
 	if (input=="no")
-		input = "[[y:x]+[x:y]]$";
+		input = "[[y:x]+[x:y]]";
+	input+='$';
   	stack<char> topdownsyntax;
   	topdownsyntax.push('$');
   	topdownsyntax.push('S');
@@ -23,7 +24,8 @@ int main(void) {
 	    else if (input[i]=='$' && topdownsyntax.top()=='$')
 	    {
 	    	cout<<endl<<"The result is:"<<endl<<"Yes"<<endl;
-	    	break;
+				k=true;
+				break;
 	    }
 	    else if (topdownsyntax.top()=='S'){
 	      cout <<"S->[A]"<<endl;
@@ -54,6 +56,11 @@ int main(void) {
 	        topdownsyntax.pop();
 	        topdownsyntax.push('S');
 	      }
+				else{
+					cout<<endl<<"The result is:"<<endl<<"No"<<endl;
+					k=true;
+					break;
+				}
 	    }
 	    else if (topdownsyntax.top()=='E') {
 	      if (input[i]==':') {
@@ -75,7 +82,11 @@ int main(void) {
 	    }
 	    else{
 	      	cout<<endl<<"The result is:"<<endl<<"No"<<endl;
-			break;
+					k=true;
+					break;
 	    }
 	  }
+		if (!k){
+			cout<<endl<<"The result is:"<<endl<<"No"<<endl;
+		}
 }
