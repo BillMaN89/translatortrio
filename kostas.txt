@@ -1,0 +1,3 @@
+var kostas, mitsos:char;
+    colt45, poutses,    g: integer;
+    sth:    real;
