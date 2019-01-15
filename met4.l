@@ -2,22 +2,19 @@
 #include <stdio.h>
 #include <string.h>
 %}
-ID [a-zA-Z][a-zA-Z0-9]*
-TYPE ["integer""boolean""char""real"]
+VAR ["var"]
+ID [a-zA-Z]+[a-zA-Z0-9]*
+CMID ,[ ]*[a-zA-Z]+[a-zA-Z0-9]*
+T :
+TYPE "integer"|"boolean"|"char"|"real"
+E ;
+S {VAR}[ ]*{ID}[ ]*{CMID}*[ ]*{T}[ ]*{TYPE}[ ]*{E}
 %%
-var {
-  printf("Var word found\n");
-}
-{TYPE} {
-  printf("Type found\n");
-}
-{ID} {
-  printf("ID found\n");
+{S} {
+  printf("YES");
 }
 [\t\n]+
 .
-
-
 %%
 main(){
   yylex();
