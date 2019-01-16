@@ -1,33 +1,38 @@
 %{
 #include <stdio.h>
 #include <string.h>
-int lines=1;
 int vf = 0;
 %}
-VAR ["var"]
 ID [a-zA-Z]+[a-zA-Z0-9]*
 CMID ,[ ]*[a-zA-Z]+[a-zA-Z0-9]*
 T :
 TYPE "integer"|"boolean"|"char"|"real"
 E ;
-NL \n
 S [ ]*{ID}[ ]*{CMID}*[ ]*{T}[ ]*{TYPE}[ ]*{E}
+UN [,]+[ ]*
+ER [ ]*{ID}[ ]*{UN}+{CMID}*[ ]*{T}[ ]*{TYPE}[ ]*{E}
 %%
-{NL} {
-  ++lines;
-}
-{VAR} {
+"var" {
   vf = 1;
 }
-{VAR}?{S} {
-  if(lines==1 && vf==1)
-    printf("Result for the %d line: YES\n", lines);
-  else if(lines>1 && vf==1)
-    printf("Result for the %d line: YES\n", lines);
-  else
-    printf("Result for the %d line: NO\n", lines);
+{S}+ {
+  if(vf==1){
+    printf("The result for the input (%s) is: YES\n", yytext);
+    }
+  else{
+    vf=0;
+    printf("The result for the input (%s) is: NO (No var keyword found)\n", yytext);
+    }
+}
+{ER}+ {
+  vf=0;
+  printf("The result for the input (%s) is: NO (more than 1 ',')\n", yytext);
 }
 [\t\n]+
+[!-~]+ {
+  vf=0;
+  printf("Unrecognised text: %s\n", yytext);
+}
 .
 %%
 main(){
